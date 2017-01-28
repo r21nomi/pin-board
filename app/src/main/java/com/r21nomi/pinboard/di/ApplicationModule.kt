@@ -1,7 +1,7 @@
 package com.r21nomi.pinboard.di
 
 import android.app.Application
-import com.r21nomi.pinboard.model.api.ApiClient
+import com.r21nomi.core.model.api.ApiClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

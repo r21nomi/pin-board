@@ -1,11 +1,11 @@
-package com.r21nomi.pinboard.model
+package com.r21nomi.core.model
 
 import android.app.Application
 import android.content.Intent
 import android.net.Uri
-import com.r21nomi.pinboard.R
-import com.r21nomi.pinboard.util.ApiUtil
-import com.r21nomi.pinboard.model.api.ApiClient
+import com.r21nomi.core.R
+import com.r21nomi.core.model.api.ApiClient
+import com.r21nomi.core.util.ApiUtil
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton

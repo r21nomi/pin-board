@@ -2,7 +2,7 @@ package com.r21nomi.pinboard.di
 
 import com.r21nomi.pinboard.di.ApplicationComponent
 import com.r21nomi.pinboard.ui.MainActivity
-import com.r21nomi.pinboard.ui.LoginActivity
+import com.r21nomi.pinboard.ui.login.LoginActivity
 import dagger.Component
 
 /**

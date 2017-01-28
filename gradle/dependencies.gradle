@@ -1,0 +1,30 @@
+ext.versions = [
+        KOTLIN_VERSION : '1.0.5-2',
+        SUPPORT_LIBRARY_VERSION : '25.1.0'
+]
+
+ext.deps = [
+        kotlin : "org.jetbrains.kotlin:kotlin-stdlib:${versions.KOTLIN_VERSION}",
+
+        // Google
+        supportv7 : "com.android.support:appcompat-v7:${versions.SUPPORT_LIBRARY_VERSION}",
+        recyclerView : "com.android.support:recyclerview-v7:${versions.SUPPORT_LIBRARY_VERSION}",
+
+        // Network
+        retrofit : 'com.squareup.retrofit2:retrofit:2.1.0',
+        retrofitGsonConverter : 'com.squareup.retrofit2:converter-gson:2.1.0',
+        retrofitAdapterRx : 'com.squareup.retrofit2:adapter-rxjava:2.1.0',
+        okhttp : 'com.squareup.okhttp3:okhttp:3.4.1',
+        okhttpLoggingIntercepter : 'com.squareup.okhttp3:logging-interceptor:3.4.1',
+
+        // DI
+        dagger : 'com.google.dagger:dagger:2.7',
+        daggerCompiler : 'com.google.dagger:dagger-compiler:2.7',
+
+        // Rx
+        rxAndroid : 'io.reactivex:rxandroid:1.2.1',
+
+        // Test
+        junit : 'junit:junit:4.12',
+        espresso :'com.android.support.test.espresso:espresso-core:2.2.2'
+]

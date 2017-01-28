@@ -1,4 +1,4 @@
-package com.r21nomi.pinboard.util
+package com.r21nomi.core.util
 
 /**
  * Created by Ryota Niinomi on 2016/09/26.

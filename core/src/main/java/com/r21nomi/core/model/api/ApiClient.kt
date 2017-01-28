@@ -1,4 +1,4 @@
-package com.r21nomi.pinboard.model.api
+package com.r21nomi.core.model.api
 
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -1,7 +1,6 @@
 package com.r21nomi.pinboard.di
 
-import com.r21nomi.pinboard.di.ApplicationModule
-import com.r21nomi.pinboard.model.LoginModel
+import com.r21nomi.core.model.LoginModel
 import com.r21nomi.pinboard.ui.BaseActivity
 import dagger.Component
 import javax.inject.Singleton
