@@ -24,6 +24,9 @@ ext.deps = [
         // Rx
         rxAndroid : 'io.reactivex:rxandroid:1.2.1',
 
+        // Debug
+        timber : 'com.jakewharton.timber:timber:4.3.1',
+
         // Test
         junit : 'junit:junit:4.12',
         espresso :'com.android.support.test.espresso:espresso-core:2.2.2'

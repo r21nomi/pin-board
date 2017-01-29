@@ -48,6 +48,8 @@ dependencies {
 
     compile deps.rxAndroid
 
+    compile deps.timber
+
     testCompile deps.junit
     androidTestCompile(deps.espresso) {
         exclude group: 'com.android.support', module: 'support-annotations'
