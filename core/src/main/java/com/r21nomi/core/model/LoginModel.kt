@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import com.r21nomi.core.R
-import com.r21nomi.core.model.api.ApiClient
 import com.r21nomi.core.util.ApiUtil
 import java.util.*
 import javax.inject.Inject
@@ -14,16 +13,7 @@ import javax.inject.Singleton
  * Created by Ryota Niinomi on 2016/09/26.
  */
 @Singleton
-class LoginModel {
-
-    val application: Application
-    val apiClient: ApiClient
-
-    @Inject
-    constructor(application: Application, apiClient: ApiClient) {
-        this.application = application
-        this.apiClient = apiClient
-    }
+class LoginModel @Inject constructor(val application: Application) {
 
     fun getOAuthIntent(): Intent {
         val param: MutableList<Pair<String, String>> = ArrayList()

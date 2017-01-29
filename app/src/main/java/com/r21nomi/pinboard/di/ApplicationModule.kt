@@ -15,13 +15,7 @@ import javax.inject.Singleton
  * Created by Ryota Niinomi on 2016/09/25.
  */
 @Module
-class ApplicationModule {
-
-    val application: Application
-
-    constructor(application: Application) {
-        this.application = application
-    }
+class ApplicationModule(private val application: Application) {
 
     @Provides
     fun provideApplication(): Application {

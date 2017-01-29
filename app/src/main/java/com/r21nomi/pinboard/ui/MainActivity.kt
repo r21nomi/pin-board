@@ -5,14 +5,9 @@ import android.os.Bundle
 import android.widget.Toast
 import com.nomi.artwatch.ui.util.DeepLinkRouter
 import com.r21nomi.pinboard.R
-import com.r21nomi.pinboard.di.ActivityComponent
 import rx.android.schedulers.AndroidSchedulers
 
 class MainActivity: BaseActivity() {
-
-    override fun injectDependency(component: ActivityComponent) {
-        component.inject(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
