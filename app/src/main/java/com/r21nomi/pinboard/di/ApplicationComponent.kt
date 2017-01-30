@@ -1,6 +1,6 @@
 package com.r21nomi.pinboard.di
 
-import com.r21nomi.core.model.LoginModel
+import com.r21nomi.core.login.repository.LoginRepositoryModule
 import com.r21nomi.pinboard.ui.login.LoginModule
 import dagger.Component
 import javax.inject.Singleton
@@ -12,9 +12,9 @@ import javax.inject.Singleton
 @Component(
         modules = arrayOf(
                 ApplicationModule::class,
+                LoginRepositoryModule::class,
                 LoginModule::class
         )
 )
-interface ApplicationComponent {
-    fun loginModel(): LoginModel
+interface ApplicationComponent : LoginRepositoryModule.Provider {
 }

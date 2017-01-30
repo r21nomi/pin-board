@@ -1,6 +1,6 @@
 package com.r21nomi.pinboard.ui.login
 
-import com.r21nomi.core.model.LoginModel
+import com.r21nomi.core.login.usecase.GetOAuthIntent
 import dagger.Module
 import dagger.Provides
 
@@ -11,7 +11,7 @@ import dagger.Provides
 class LoginModule {
     @Provides
     @LoginScope
-    fun provideLoginViewModel(loginModel: LoginModel): LoginViewModel {
-        return LoginViewModel(loginModel)
+    fun provideLoginViewModel(getOAuthIntent: GetOAuthIntent): LoginViewModel {
+        return LoginViewModel(getOAuthIntent)
     }
 }
