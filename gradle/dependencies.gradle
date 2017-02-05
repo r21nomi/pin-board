@@ -10,6 +10,10 @@ ext.deps = [
         supportv7 : "com.android.support:appcompat-v7:${versions.SUPPORT_LIBRARY_VERSION}",
         recyclerView : "com.android.support:recyclerview-v7:${versions.SUPPORT_LIBRARY_VERSION}",
 
+        // UI
+        fresco : 'com.facebook.fresco:fresco:0.14.1',
+        recyclerviewMultipleViewtypesAdapter : 'com.yqritc:recyclerview-multiple-viewtypes-adapter:1.1.0',
+
         // Network
         retrofit : 'com.squareup.retrofit2:retrofit:2.1.0',
         retrofitMoshiConverter : 'com.squareup.retrofit2:converter-moshi:2.1.0',

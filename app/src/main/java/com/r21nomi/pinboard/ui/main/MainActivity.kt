@@ -5,6 +5,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.widget.Toast
 import com.nomi.artwatch.ui.util.DeepLinkRouter
 import com.r21nomi.core.login.usecase.SaveAccessToken
@@ -12,6 +13,7 @@ import com.r21nomi.core.pin.usecase.GetPins
 import com.r21nomi.pinboard.R
 import com.r21nomi.pinboard.databinding.ActivityMainBinding
 import com.r21nomi.pinboard.ui.BaseActivity
+import com.yqritc.recyclerviewmultipleviewtypesadapter.ListBindAdapter
 import rx.Completable
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -36,6 +38,8 @@ class MainActivity: BaseActivity() {
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     }
+    private val adapter: ListBindAdapter = ListBindAdapter()
+    private val binder: PinBinder = PinBinder(adapter)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,8 @@ class MainActivity: BaseActivity() {
                 .applicationComponent(getApplicationComponent())
                 .build()
                 .inject(this)
+
+        initAdapter()
 
         val uri: Uri? = intent.data
         val observable: Completable
@@ -62,14 +68,26 @@ class MainActivity: BaseActivity() {
         }
 
         observable.subscribe {
-            binding.text.text = "completed!!!!"
-
             getPins
                     .execute(LIMIT)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
                         Timber.d("data : " + it.data.size)
+                        binder.addDataSet(it.data)
+                        binder.notifyBinderDataSetChanged()
                     }
         }
+    }
+
+    private fun initAdapter() {
+        val gridLayoutManager = GridLayoutManager(this, 2)
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return 1
+            }
+        }
+        adapter.addBinder(binder)
+        binding.recyclerView.layoutManager = gridLayoutManager
+        binding.recyclerView.adapter = adapter
     }
 }
