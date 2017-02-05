@@ -12,10 +12,11 @@ ext.deps = [
 
         // Network
         retrofit : 'com.squareup.retrofit2:retrofit:2.1.0',
-        retrofitGsonConverter : 'com.squareup.retrofit2:converter-gson:2.1.0',
+        retrofitMoshiConverter : 'com.squareup.retrofit2:converter-moshi:2.1.0',
         retrofitAdapterRx : 'com.squareup.retrofit2:adapter-rxjava:2.1.0',
         okhttp : 'com.squareup.okhttp3:okhttp:3.4.1',
         okhttpLoggingIntercepter : 'com.squareup.okhttp3:logging-interceptor:3.4.1',
+        moshi : 'com.squareup.moshi:moshi:1.3.1',
 
         // DI
         dagger : 'com.google.dagger:dagger:2.7',

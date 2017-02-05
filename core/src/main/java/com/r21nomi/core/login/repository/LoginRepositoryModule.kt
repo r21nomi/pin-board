@@ -9,6 +9,7 @@ import dagger.Provides
  */
 @Module
 class LoginRepositoryModule {
+
     @Provides
     fun provideLoginRepository(loginRepositoryImpl: LoginRepositoryImpl): LoginRepository {
         return loginRepositoryImpl

@@ -37,10 +37,11 @@ dependencies {
 
     compile deps.kotlin
     compile deps.retrofit
-    compile deps.retrofitGsonConverter
+    compile deps.retrofitMoshiConverter
     compile deps.retrofitAdapterRx
     compile deps.okhttp
     compile deps.okhttpLoggingIntercepter
+    compile deps.moshi
     compile deps.dagger
     kapt deps.daggerCompiler
     compile deps.rxAndroid

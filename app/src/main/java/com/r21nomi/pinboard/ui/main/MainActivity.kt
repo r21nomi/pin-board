@@ -8,12 +8,14 @@ import android.os.Bundle
 import android.widget.Toast
 import com.nomi.artwatch.ui.util.DeepLinkRouter
 import com.r21nomi.core.login.usecase.SaveAccessToken
+import com.r21nomi.core.pin.usecase.GetPins
 import com.r21nomi.pinboard.R
 import com.r21nomi.pinboard.databinding.ActivityMainBinding
 import com.r21nomi.pinboard.ui.BaseActivity
 import rx.Completable
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity: BaseActivity() {
@@ -23,10 +25,13 @@ class MainActivity: BaseActivity() {
             val intent = Intent(context, MainActivity::class.java)
             return intent
         }
+        val LIMIT = 50
     }
 
     @Inject
     lateinit var saveAccessToken: SaveAccessToken
+    @Inject
+    lateinit var getPins: GetPins
 
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
@@ -58,6 +63,13 @@ class MainActivity: BaseActivity() {
 
         observable.subscribe {
             binding.text.text = "completed!!!!"
+
+            getPins
+                    .execute(LIMIT)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        Timber.d("data : " + it.data.size)
+                    }
         }
     }
 }
