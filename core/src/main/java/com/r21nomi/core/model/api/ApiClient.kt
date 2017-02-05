@@ -14,7 +14,6 @@ interface ApiClient {
             @Query("response_type") responseType: String,
             @Query("redirect_uri") redirectUri: String,
             @Query("client_id") clientId: String,
-            @Query("scope") scope: String,
-            @Query("state") state: String
+            @Query("scope") scope: String
     ): Observable<Void>
 }

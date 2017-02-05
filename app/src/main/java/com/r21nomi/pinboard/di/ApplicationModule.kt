@@ -1,6 +1,7 @@
 package com.r21nomi.pinboard.di
 
 import android.app.Application
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.r21nomi.core.model.api.ApiClient
 import dagger.Module
 import dagger.Provides
@@ -29,6 +30,7 @@ class ApplicationModule(private val application: Application) {
         logging.setLevel(HttpLoggingInterceptor.Level.BASIC)
         return OkHttpClient.Builder()
                 .addInterceptor(logging)
+                .addNetworkInterceptor(StethoInterceptor())
                 .build()
     }
 

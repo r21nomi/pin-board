@@ -1,5 +1,6 @@
 package com.r21nomi.pinboard
 
+import com.facebook.stetho.Stetho
 import timber.log.Timber
 
 
@@ -11,5 +12,9 @@ class DebugApplication: Application() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                .build())
     }
 }

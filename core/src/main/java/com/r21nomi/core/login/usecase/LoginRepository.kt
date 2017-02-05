@@ -9,4 +9,6 @@ interface LoginRepository {
     fun getOAuthIntent(): Intent
 
     fun saveAccessToken(token: String)
+
+    fun getAccessToken(): String
 }

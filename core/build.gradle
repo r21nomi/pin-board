@@ -36,19 +36,16 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile deps.kotlin
-
     compile deps.retrofit
     compile deps.retrofitGsonConverter
     compile deps.retrofitAdapterRx
     compile deps.okhttp
     compile deps.okhttpLoggingIntercepter
-
     compile deps.dagger
     kapt deps.daggerCompiler
-
     compile deps.rxAndroid
-
     compile deps.timber
+    debugCompile 'com.facebook.stetho:stetho:1.4.1'
 
     testCompile deps.junit
     androidTestCompile(deps.espresso) {

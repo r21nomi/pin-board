@@ -54,22 +54,19 @@ dependencies {
     compile project(':core')
 
     compile deps.kotlin
-
     compile deps.supportv7
     compile deps.recyclerView
-
     compile deps.retrofit
     compile deps.retrofitGsonConverter
     compile deps.retrofitAdapterRx
     compile deps.okhttp
     compile deps.okhttpLoggingIntercepter
-
     compile deps.dagger
     kapt deps.daggerCompiler
-
     compile deps.rxAndroid
-
     compile deps.timber
+    debugCompile deps.stetho
+    debugCompile deps.stethoOkhttp
 
     testCompile deps.junit
     androidTestCompile(deps.espresso) {

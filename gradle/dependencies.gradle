@@ -26,6 +26,8 @@ ext.deps = [
 
         // Debug
         timber : 'com.jakewharton.timber:timber:4.3.1',
+        stetho : 'com.facebook.stetho:stetho:1.4.1',
+        stethoOkhttp : 'com.facebook.stetho:stetho-okhttp3:1.4.1',
 
         // Test
         junit : 'junit:junit:4.12',
