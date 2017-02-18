@@ -15,7 +15,7 @@ import java.util.*
 /**
  * Created by r21nomi on 2017/02/05.
  */
-class PinBinder(dataBindAdapter: DataBindAdapter) : DataBinder<PinBinder.ViewHolder>(dataBindAdapter) {
+class PinBinder(dataBindAdapter: DataBindAdapter, val maximumItemWidth: Int) : DataBinder<PinBinder.ViewHolder>(dataBindAdapter) {
 
     private var dataSet: MutableList<Pin> = ArrayList()
 
@@ -31,6 +31,10 @@ class PinBinder(dataBindAdapter: DataBindAdapter) : DataBinder<PinBinder.ViewHol
 
         val uri = Uri.parse(item.images.image.url)
         holder.binding.thumb.setImageURI(uri, null)
+
+        val param = holder.binding.thumb.layoutParams
+        param.height = item.images.image.height * maximumItemWidth / item.images.image.width
+        holder.binding.thumb.layoutParams = param
     }
 
     override fun getItemCount(): Int {

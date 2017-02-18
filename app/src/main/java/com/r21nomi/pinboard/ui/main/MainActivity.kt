@@ -5,9 +5,10 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.widget.Toast
 import com.nomi.artwatch.ui.util.DeepLinkRouter
+import com.nomi.artwatch.util.WindowUtil
 import com.r21nomi.core.login.usecase.SaveAccessToken
 import com.r21nomi.core.pin.usecase.GetPins
 import com.r21nomi.pinboard.R
@@ -28,6 +29,7 @@ class MainActivity: BaseActivity() {
             return intent
         }
         val LIMIT = 50
+        val COLUMN = 2
     }
 
     @Inject
@@ -39,7 +41,9 @@ class MainActivity: BaseActivity() {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     }
     private val adapter: ListBindAdapter = ListBindAdapter()
-    private val binder: PinBinder = PinBinder(adapter)
+    private val binder: PinBinder by lazy {
+        PinBinder(adapter, WindowUtil.getWidth(this) / 2)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,13 +84,9 @@ class MainActivity: BaseActivity() {
     }
 
     private fun initAdapter() {
-        val gridLayoutManager = GridLayoutManager(this, 2)
-        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return 1
-            }
-        }
+        val gridLayoutManager = StaggeredGridLayoutManager(COLUMN, 1)
         adapter.addBinder(binder)
+        binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = gridLayoutManager
         binding.recyclerView.adapter = adapter
     }

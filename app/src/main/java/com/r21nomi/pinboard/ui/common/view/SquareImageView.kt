@@ -2,7 +2,6 @@ package com.r21nomi.pinboard.ui.common.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.ImageView
 import com.facebook.drawee.view.SimpleDraweeView
 
 /**

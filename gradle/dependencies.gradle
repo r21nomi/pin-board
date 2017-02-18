@@ -9,6 +9,7 @@ ext.deps = [
         // Google
         supportv7 : "com.android.support:appcompat-v7:${versions.SUPPORT_LIBRARY_VERSION}",
         recyclerView : "com.android.support:recyclerview-v7:${versions.SUPPORT_LIBRARY_VERSION}",
+        cardview : "com.android.support:cardview-v7:${versions.SUPPORT_LIBRARY_VERSION}",
 
         // UI
         fresco : 'com.facebook.fresco:fresco:0.14.1',
