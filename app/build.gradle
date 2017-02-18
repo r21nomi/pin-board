@@ -56,6 +56,7 @@ dependencies {
     compile deps.kotlin
     compile deps.supportv7
     compile deps.recyclerView
+    compile deps.cardview
     compile deps.recyclerviewMultipleViewtypesAdapter
     compile deps.fresco
     compile deps.retrofit
