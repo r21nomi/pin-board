@@ -9,8 +9,13 @@ import javax.inject.Inject
  * Created by r21nomi on 2017/02/05.
  */
 class GetPins @Inject constructor(val loginRepository: LoginRepository, val pinRepository: PinRepository) {
+
     fun execute(limit: Int): Observable<PinResponse> {
+        return execute(limit, "")
+    }
+
+    fun execute(limit: Int, cursor: String): Observable<PinResponse> {
         val accessToken = loginRepository.getAccessToken()
-        return pinRepository.fetchPins(accessToken, limit)
+        return pinRepository.fetchPins(accessToken, limit, cursor)
     }
 }

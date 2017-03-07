@@ -10,10 +10,13 @@ import android.widget.Toast
 import com.nomi.artwatch.ui.util.DeepLinkRouter
 import com.nomi.artwatch.util.WindowUtil
 import com.r21nomi.core.login.usecase.SaveAccessToken
+import com.r21nomi.core.pin.entity.Page
 import com.r21nomi.core.pin.usecase.GetPins
 import com.r21nomi.pinboard.R
 import com.r21nomi.pinboard.databinding.ActivityMainBinding
 import com.r21nomi.pinboard.ui.BaseActivity
+import com.r21nomi.pinboard.util.ViewUtil
+import com.r21nomi.qiitaclientandroid.ui.adapter.InfiniteScrollRecyclerListener
 import com.yqritc.recyclerviewmultipleviewtypesadapter.ListBindAdapter
 import rx.Completable
 import rx.Observable
@@ -44,6 +47,7 @@ class MainActivity: BaseActivity() {
     private val binder: PinBinder by lazy {
         PinBinder(adapter, WindowUtil.getWidth(this) / 2)
     }
+    private var lastPage: Page ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,14 +76,7 @@ class MainActivity: BaseActivity() {
         }
 
         observable.subscribe {
-            getPins
-                    .execute(LIMIT)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        Timber.d("data : " + it.data.size)
-                        binder.addDataSet(it.data)
-                        binder.notifyBinderDataSetChanged()
-                    }
+            fetch("")
         }
     }
 
@@ -89,5 +86,28 @@ class MainActivity: BaseActivity() {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = gridLayoutManager
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.addOnScrollListener(object : InfiniteScrollRecyclerListener(gridLayoutManager) {
+            override fun onLoadMore(page: Int, totalItemCount: Int) {
+                if (lastPage == null) {
+                    return
+                }
+                fetch(lastPage?.cursor ?: "")
+            }
+        })
+    }
+
+    private fun fetch(cursor: String) {
+        getPins
+                .execute(LIMIT, cursor)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Timber.d("data : " + it.data.size)
+                    lastPage = it.page
+                    binder.addDataSet(it.data)
+                    binder.notifyBinderDataSetChanged()
+                }, {
+                    Timber.e(it)
+                    ViewUtil.showSnackBar(this, "error")
+                })
     }
 }

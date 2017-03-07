@@ -13,6 +13,7 @@ interface PinApi {
     fun getPins(
             @Query("access_token") accessToken: String,
             @Query("fields") fields: String,
-            @Query("limit") limit: Int
+            @Query("limit") limit: Int,
+            @Query("cursor") cursor: String
     ): Observable<PinResponse>
 }
