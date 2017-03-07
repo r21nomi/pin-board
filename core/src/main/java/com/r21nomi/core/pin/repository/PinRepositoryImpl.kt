@@ -18,12 +18,13 @@ class PinRepositoryImpl @Inject constructor(val application: Application, val pi
         val FIELDS = "id,creator,note,image"
     }
 
-    override fun fetchPins(accessToken: String, limit: Int): Observable<PinResponse> {
+    override fun fetchPins(accessToken: String, limit: Int, cursor: String): Observable<PinResponse> {
         return pinApi
                 .getPins(
                         accessToken,
                         FIELDS,
-                        limit
+                        limit,
+                        cursor
                 )
                 .subscribeOn(Schedulers.io())
     }

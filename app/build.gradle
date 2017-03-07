@@ -55,6 +55,7 @@ dependencies {
 
     compile deps.kotlin
     compile deps.supportv7
+    compile deps.supportDesign
     compile deps.recyclerView
     compile deps.cardview
     compile deps.recyclerviewMultipleViewtypesAdapter

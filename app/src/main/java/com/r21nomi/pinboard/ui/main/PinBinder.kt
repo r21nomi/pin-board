@@ -45,6 +45,10 @@ class PinBinder(dataBindAdapter: DataBindAdapter, val maximumItemWidth: Int) : D
         this.dataSet.addAll(dataSet)
     }
 
+    fun getDataSet(): List<Pin> {
+        return ArrayList(dataSet)
+    }
+
     inner class ViewHolder(val binding: PinViewholderBinding): RecyclerView.ViewHolder(binding.root) {
         // no-op
     }
