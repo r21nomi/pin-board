@@ -1,6 +1,7 @@
 package com.r21nomi.pinboard.util
 
 import android.app.Activity
+import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 
 /**
@@ -8,6 +9,10 @@ import android.support.design.widget.Snackbar
  */
 class ViewUtil {
     companion object {
+        fun showSnackBar(activity: Activity, @StringRes messageRes: Int) {
+            showSnackBar(activity, activity.getString(messageRes))
+        }
+
         fun showSnackBar(activity: Activity, message: String) {
             Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
         }

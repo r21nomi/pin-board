@@ -107,7 +107,7 @@ class MainActivity: BaseActivity() {
                     binder.notifyBinderDataSetChanged()
                 }, {
                     Timber.e(it)
-                    ViewUtil.showSnackBar(this, "error")
+                    ViewUtil.showSnackBar(this, R.string.error)
                 })
     }
 }

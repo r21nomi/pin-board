@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">pin-board</string>
 
     <string name="login_btn_label" translatable="false">Login to Pinterest</string>
+    <string name="error">An error occurred. Please try again later.</string>
 </resources>
