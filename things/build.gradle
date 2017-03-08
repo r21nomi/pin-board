@@ -1,0 +1,84 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.github.ben-manes.versions'
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.KOTLIN_VERSION}"
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
+    }
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "com.r21nomi.pinframe"
+        minSdkVersion 24
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            debuggable true
+            zipAlignEnabled false
+            applicationIdSuffix ".debug"
+            minifyEnabled false
+            multiDexEnabled false
+        }
+        release {
+            debuggable false
+            zipAlignEnabled true
+            minifyEnabled true
+            multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    provided 'com.google.android.things:androidthings:0.2-devpreview'
+
+    compile project(':core')
+
+    compile deps.kotlin
+    compile deps.supportv7
+    compile deps.supportDesign
+    compile deps.recyclerView
+    compile deps.cardview
+    compile deps.recyclerviewMultipleViewtypesAdapter
+    compile deps.fresco
+    compile deps.retrofit
+    compile deps.retrofitMoshiConverter
+    compile deps.retrofitAdapterRx
+    compile deps.okhttp
+    compile deps.okhttpLoggingIntercepter
+    compile deps.moshi
+    compile deps.dagger
+    kapt deps.daggerCompiler
+    compile deps.rxAndroid
+    compile deps.timber
+    debugCompile deps.stetho
+    debugCompile deps.stethoOkhttp
+
+    testCompile deps.junit
+    androidTestCompile(deps.espresso) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+}
