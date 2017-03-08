@@ -1,4 +1,4 @@
-package com.nomi.artwatch.ui.util
+package com.r21nomi.pinboard.util
 
 import android.net.Uri
 import com.r21nomi.pinboard.util.StringUtil
