@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.widget.Toast
+import com.google.firebase.crash.FirebaseCrash
 import com.r21nomi.core.login.usecase.SaveAccessToken
 import com.r21nomi.core.pin.entity.Page
 import com.r21nomi.core.pin.usecase.GetPins

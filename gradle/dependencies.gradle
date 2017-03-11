@@ -1,6 +1,7 @@
 ext.versions = [
         KOTLIN_VERSION : '1.1.0',
-        SUPPORT_LIBRARY_VERSION : '25.2.0'
+        SUPPORT_LIBRARY_VERSION : '25.2.0',
+        PLAY_SERVICES_VERSION : '10.2.0'
 ]
 
 ext.deps = [
@@ -11,6 +12,8 @@ ext.deps = [
         supportDesign : "com.android.support:design:${versions.SUPPORT_LIBRARY_VERSION}",
         recyclerView : "com.android.support:recyclerview-v7:${versions.SUPPORT_LIBRARY_VERSION}",
         cardview : "com.android.support:cardview-v7:${versions.SUPPORT_LIBRARY_VERSION}",
+        firebaseCore : "com.google.firebase:firebase-core:${versions.PLAY_SERVICES_VERSION}",
+        firebaseCrash : "com.google.firebase:firebase-crash:${versions.PLAY_SERVICES_VERSION}",
 
         // UI
         fresco : 'com.facebook.fresco:fresco:0.14.1',

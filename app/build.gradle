@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'com.google.firebase.firebase-crash'
 
 buildscript {
     repositories {
@@ -58,6 +59,8 @@ dependencies {
     compile deps.supportDesign
     compile deps.recyclerView
     compile deps.cardview
+    compile deps.firebaseCore
+    compile deps.firebaseCrash
     compile deps.recyclerviewMultipleViewtypesAdapter
     compile deps.fresco
     compile deps.retrofit
@@ -78,3 +81,5 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 }
+
+apply plugin: 'com.google.gms.google-services'
