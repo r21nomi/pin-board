@@ -61,6 +61,7 @@ dependencies {
     compile deps.cardview
     compile deps.firebaseCore
     compile deps.firebaseCrash
+    compile deps.firebaseDataBase
     compile deps.recyclerviewMultipleViewtypesAdapter
     compile deps.fresco
     compile deps.retrofit

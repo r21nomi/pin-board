@@ -36,6 +36,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile deps.kotlin
+    compile deps.firebaseDataBase
     compile deps.retrofit
     compile deps.retrofitMoshiConverter
     compile deps.retrofitAdapterRx

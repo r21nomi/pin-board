@@ -14,6 +14,7 @@ ext.deps = [
         cardview : "com.android.support:cardview-v7:${versions.SUPPORT_LIBRARY_VERSION}",
         firebaseCore : "com.google.firebase:firebase-core:${versions.PLAY_SERVICES_VERSION}",
         firebaseCrash : "com.google.firebase:firebase-crash:${versions.PLAY_SERVICES_VERSION}",
+        firebaseDataBase : "com.google.firebase:firebase-database:${versions.PLAY_SERVICES_VERSION}",
 
         // UI
         fresco : 'com.facebook.fresco:fresco:0.14.1',

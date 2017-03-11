@@ -2,7 +2,6 @@ package com.r21nomi.pinframe.di
 
 import android.app.Application
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.r21nomi.core.model.api.ApiClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -43,11 +42,5 @@ class ApplicationModule(private val application: Application) {
                 .baseUrl("https://api.pinterest.com")
                 .client(okHttpClient)
                 .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideApiClient(retrofit: Retrofit): ApiClient {
-        return retrofit.create(ApiClient::class.java)
     }
 }

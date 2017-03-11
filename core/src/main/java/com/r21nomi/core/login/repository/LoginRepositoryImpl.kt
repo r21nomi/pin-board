@@ -1,12 +1,10 @@
 package com.r21nomi.core.login.repository
 
 import android.app.Application
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.r21nomi.core.R
 import com.r21nomi.core.login.usecase.LoginRepository
-import com.r21nomi.core.model.api.ApiClient
 import com.r21nomi.core.util.ApiUtil
 import java.util.*
 import javax.inject.Inject
@@ -16,22 +14,9 @@ import javax.inject.Singleton
  * Created by Ryota Niinomi on 2016/09/26.
  */
 @Singleton
-class LoginRepositoryImpl @Inject constructor(val application: Application, val apiClient: ApiClient) : LoginRepository {
-
-    companion object {
-        val PREF_NAME = "login_pref"
-        val PREF_KEY_ACCESS_TOKEN = "access_token"
-
-        fun getAccessToken(context: Context) : String {
-            val pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-            return pref.getString(PREF_KEY_ACCESS_TOKEN, "")
-        }
-
-        fun setAccessToken(context: Context, accessToken: String) {
-            val pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-            pref.edit().putString(PREF_KEY_ACCESS_TOKEN, accessToken).commit()
-        }
-    }
+class LoginRepositoryImpl @Inject constructor(val application: Application,
+                                              val accessTokenPref: AccessTokenPref,
+                                              val accessTokenDao: AccessTokenDao) : LoginRepository {
 
     override fun getOAuthIntent(): Intent {
         val param: MutableList<Pair<String, String>> = ArrayList()
@@ -45,10 +30,11 @@ class LoginRepositoryImpl @Inject constructor(val application: Application, val 
     }
 
     override fun saveAccessToken(token: String) {
-        Companion.setAccessToken(application, token)
+        accessTokenPref.set(token)
+        accessTokenDao.set(token)
     }
 
     override fun getAccessToken(): String {
-        return Companion.getAccessToken(application)
+        return accessTokenPref.get()
     }
 }
