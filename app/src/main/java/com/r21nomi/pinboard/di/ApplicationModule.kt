@@ -1,8 +1,9 @@
 package com.r21nomi.pinboard.di
 
 import android.app.Application
+import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.r21nomi.core.model.api.ApiClient
+import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -21,6 +22,12 @@ class ApplicationModule(private val application: Application) {
     @Provides
     fun provideApplication(): Application {
         return application
+    }
+
+    @Provides
+    @Singleton
+    fun provideApplicatoinContext(): Context {
+        return application.applicationContext
     }
 
     @Provides
@@ -47,7 +54,7 @@ class ApplicationModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideApiClient(retrofit: Retrofit): ApiClient {
-        return retrofit.create(ApiClient::class.java)
+    fun provideFirebaseDatabase(): FirebaseDatabase {
+        return FirebaseDatabase.getInstance()
     }
 }
