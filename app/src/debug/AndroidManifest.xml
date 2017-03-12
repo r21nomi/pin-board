@@ -4,6 +4,6 @@
     package="com.r21nomi.pinboard">
 
     <application
-        android:name=".DebugApplication"
+        android:name=".DebugApp"
         tools:replace="android:name" />
 </manifest>
