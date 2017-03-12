@@ -1,4 +1,4 @@
-package com.r21nomi.pinframe.ui.common.adapter
+package com.r21nomi.pinboard.ui.common.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager

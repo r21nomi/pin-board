@@ -1,6 +1,6 @@
-package com.r21nomi.pinframe.ui.main
+package com.r21nomi.pinboard.ui.main
 
-import com.r21nomi.pinframe.di.ApplicationComponent
+import com.r21nomi.pinboard.di.ApplicationComponent
 import dagger.Component
 
 /**

@@ -1,10 +1,11 @@
-package com.r21nomi.pinframe
+package com.r21nomi.pinboard
 
 import android.app.Application
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.r21nomi.pinframe.di.ApplicationComponent
-import com.r21nomi.pinframe.di.ApplicationModule
-import com.r21nomi.pinframe.di.DaggerApplicationComponent
+import com.google.firebase.FirebaseApp
+import com.r21nomi.pinboard.di.ApplicationComponent
+import com.r21nomi.pinboard.di.ApplicationModule
+import com.r21nomi.pinboard.di.DaggerApplicationComponent
 
 /**
  * Created by Ryota Niinomi on 2016/09/25.
@@ -16,6 +17,7 @@ open class App: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        FirebaseApp.initializeApp(this)
         initInjector()
 
         Fresco.initialize(this)

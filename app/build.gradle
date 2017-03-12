@@ -59,23 +59,14 @@ dependencies {
     compile deps.supportDesign
     compile deps.recyclerView
     compile deps.cardview
-    compile deps.firebaseCore
     compile deps.firebaseCrash
-    compile deps.firebaseDataBase
     compile deps.recyclerviewMultipleViewtypesAdapter
     compile deps.fresco
-    compile deps.retrofit
-    compile deps.retrofitMoshiConverter
-    compile deps.retrofitAdapterRx
-    compile deps.okhttp
-    compile deps.okhttpLoggingIntercepter
-    compile deps.moshi
     compile deps.dagger
     kapt deps.daggerCompiler
     compile deps.rxAndroid
     compile deps.timber
     debugCompile deps.stetho
-    debugCompile deps.stethoOkhttp
 
     testCompile deps.junit
     androidTestCompile(deps.espresso) {

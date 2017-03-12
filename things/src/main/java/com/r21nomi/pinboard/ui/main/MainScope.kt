@@ -1,4 +1,4 @@
-package com.r21nomi.pinframe.ui.main
+package com.r21nomi.pinboard.ui.main
 
 import javax.inject.Scope
 

@@ -1,4 +1,4 @@
-package com.r21nomi.pinframe;
+package com.r21nomi.pinboard;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

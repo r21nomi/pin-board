@@ -1,4 +1,4 @@
-package com.r21nomi.pinframe;
+package com.r21nomi.pinboard;
 
 import org.junit.Test;
 

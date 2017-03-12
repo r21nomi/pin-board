@@ -36,6 +36,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile deps.kotlin
+    compile deps.firebaseCore
     compile deps.firebaseDataBase
     compile deps.retrofit
     compile deps.retrofitMoshiConverter
@@ -47,7 +48,7 @@ dependencies {
     kapt deps.daggerCompiler
     compile deps.rxAndroid
     compile deps.timber
-    debugCompile 'com.facebook.stetho:stetho:1.4.1'
+    compile deps.stethoOkhttp  // FIXME: Use debugCompile
 
     testCompile deps.junit
     androidTestCompile(deps.espresso) {

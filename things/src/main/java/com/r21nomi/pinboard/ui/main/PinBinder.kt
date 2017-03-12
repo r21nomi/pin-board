@@ -1,4 +1,4 @@
-package com.r21nomi.pinframe.ui.main
+package com.r21nomi.pinboard.ui.main
 
 import android.databinding.DataBindingUtil
 import android.net.Uri
@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.r21nomi.core.pin.entity.Pin
-import com.r21nomi.pinframe.R
-import com.r21nomi.pinframe.databinding.PinViewholderBinding
+import com.r21nomi.pinboard.R
+import com.r21nomi.pinboard.databinding.PinViewholderBinding
 import com.yqritc.recyclerviewmultipleviewtypesadapter.DataBindAdapter
 import com.yqritc.recyclerviewmultipleviewtypesadapter.DataBinder
 import java.util.*
