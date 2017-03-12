@@ -1,7 +1,9 @@
-package com.r21nomi.pinframe.di
+package com.r21nomi.core.di
 
-import android.app.Application
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.google.firebase.database.FirebaseDatabase
+import com.r21nomi.core.login.repository.LoginRepositoryModule
+import com.r21nomi.core.pin.repository.PinRepositoryModule
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -12,16 +14,15 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 /**
- * Created by Ryota Niinomi on 2016/09/25.
+ * Created by r21nomi on 2017/03/12.
  */
-@Module
-class ApplicationModule(private val application: Application) {
-
-    @Provides
-    fun provideApplication(): Application {
-        return application
-    }
-
+@Module(
+        includes = arrayOf(
+                LoginRepositoryModule::class,
+                PinRepositoryModule::class
+        )
+)
+class CoreModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
@@ -29,7 +30,7 @@ class ApplicationModule(private val application: Application) {
         logging.setLevel(HttpLoggingInterceptor.Level.BASIC)
         return OkHttpClient.Builder()
                 .addInterceptor(logging)
-                .addNetworkInterceptor(StethoInterceptor())
+                .addNetworkInterceptor(StethoInterceptor())  // FIXME: Do not set if its debug build.
                 .build()
     }
 
@@ -42,5 +43,16 @@ class ApplicationModule(private val application: Application) {
                 .baseUrl("https://api.pinterest.com")
                 .client(okHttpClient)
                 .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseDatabase(): FirebaseDatabase {
+        return FirebaseDatabase.getInstance()
+    }
+
+    interface Provider :
+            LoginRepositoryModule.Provider,
+            PinRepositoryModule.Provider {
     }
 }

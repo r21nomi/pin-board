@@ -21,7 +21,7 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "com.r21nomi.pinframe"
+        applicationId APPLICATION_ID
         minSdkVersion 24
         targetSdkVersion 25
         versionCode 1
@@ -64,21 +64,16 @@ dependencies {
     compile deps.cardview
     compile deps.recyclerviewMultipleViewtypesAdapter
     compile deps.fresco
-    compile deps.retrofit
-    compile deps.retrofitMoshiConverter
-    compile deps.retrofitAdapterRx
-    compile deps.okhttp
-    compile deps.okhttpLoggingIntercepter
-    compile deps.moshi
     compile deps.dagger
     kapt deps.daggerCompiler
     compile deps.rxAndroid
     compile deps.timber
     debugCompile deps.stetho
-    debugCompile deps.stethoOkhttp
 
     testCompile deps.junit
     androidTestCompile(deps.espresso) {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,8 +1,8 @@
-package com.r21nomi.pinframe.ui
+package com.r21nomi.pinboard.ui
 
 import android.support.v7.app.AppCompatActivity
-import com.r21nomi.pinframe.di.ApplicationComponent
-import com.r21nomi.pinframe.App
+import com.r21nomi.pinboard.di.ApplicationComponent
+import com.r21nomi.pinboard.App
 
 abstract class BaseActivity: AppCompatActivity() {
 

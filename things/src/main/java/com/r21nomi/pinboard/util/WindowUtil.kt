@@ -1,4 +1,4 @@
-package com.r21nomi.pinframe.util
+package com.r21nomi.pinboard.util
 
 import android.content.Context
 import android.graphics.Point

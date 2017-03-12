@@ -1,4 +1,4 @@
-package com.r21nomi.pinframe.ui.main
+package com.r21nomi.pinboard.ui.main
 
 import android.content.Context
 import android.content.Intent
@@ -8,11 +8,11 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import com.r21nomi.core.login.usecase.SaveAccessToken
 import com.r21nomi.core.pin.entity.Page
 import com.r21nomi.core.pin.usecase.GetPins
-import com.r21nomi.pinframe.R
-import com.r21nomi.pinframe.databinding.ActivityMainBinding
-import com.r21nomi.pinframe.ui.BaseActivity
-import com.r21nomi.pinframe.ui.common.adapter.InfiniteScrollRecyclerListener
-import com.r21nomi.pinframe.util.WindowUtil
+import com.r21nomi.pinboard.R
+import com.r21nomi.pinboard.databinding.ActivityMainBinding
+import com.r21nomi.pinboard.ui.BaseActivity
+import com.r21nomi.pinboard.ui.common.adapter.InfiniteScrollRecyclerListener
+import com.r21nomi.pinboard.util.WindowUtil
 import com.yqritc.recyclerviewmultipleviewtypesadapter.ListBindAdapter
 import rx.android.schedulers.AndroidSchedulers
 import timber.log.Timber

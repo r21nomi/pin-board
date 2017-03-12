@@ -1,4 +1,4 @@
-package com.r21nomi.pinframe;
+package com.r21nomi.pinboard;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.r21nomi.pinframe", appContext.getPackageName());
+        assertEquals("com.r21nomi.pinboard", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package com.r21nomi.pinframe
+package com.r21nomi.pinboard
 
 import com.facebook.stetho.Stetho
 import timber.log.Timber
