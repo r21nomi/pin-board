@@ -7,7 +7,7 @@ import timber.log.Timber
 /**
  * Created by Ryota Niinomi on 2017/01/29.
  */
-class DebugApplication: Application() {
+class DebugApp : App() {
     override fun onCreate() {
         super.onCreate()
 

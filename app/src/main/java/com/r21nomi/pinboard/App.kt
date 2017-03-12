@@ -9,7 +9,7 @@ import com.r21nomi.pinboard.di.DaggerApplicationComponent
 /**
  * Created by Ryota Niinomi on 2016/09/25.
  */
-open class Application: Application() {
+open class App : Application() {
 
     var applicationComponent: ApplicationComponent? = null
 
