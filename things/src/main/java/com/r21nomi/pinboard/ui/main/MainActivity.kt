@@ -5,11 +5,10 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
-import com.r21nomi.core.login.usecase.SaveAccessToken
 import com.r21nomi.core.pin.entity.Page
-import com.r21nomi.core.pin.usecase.GetPins
 import com.r21nomi.pinboard.R
 import com.r21nomi.pinboard.databinding.ActivityMainBinding
+import com.r21nomi.pinboard.domain.pin.GetPins
 import com.r21nomi.pinboard.ui.BaseActivity
 import com.r21nomi.pinboard.ui.common.adapter.InfiniteScrollRecyclerListener
 import com.r21nomi.pinboard.util.WindowUtil
@@ -30,8 +29,6 @@ class MainActivity : BaseActivity() {
         val COLUMN = 2
     }
 
-    @Inject
-    lateinit var saveAccessToken: SaveAccessToken
     @Inject
     lateinit var getPins: GetPins
 

@@ -1,7 +1,7 @@
 package com.r21nomi.pinboard.ui.login
 
 import android.view.View
-import com.r21nomi.core.login.usecase.GetOAuthIntent
+import com.r21nomi.pinboard.domain.login.GetOAuthIntent
 import rx.subjects.BehaviorSubject
 
 /**

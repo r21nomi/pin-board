@@ -7,11 +7,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.widget.Toast
-import com.r21nomi.core.login.usecase.SaveAccessToken
 import com.r21nomi.core.pin.entity.Page
-import com.r21nomi.core.pin.usecase.GetPins
 import com.r21nomi.pinboard.R
 import com.r21nomi.pinboard.databinding.ActivityMainBinding
+import com.r21nomi.pinboard.domain.login.SaveAccessToken
+import com.r21nomi.pinboard.domain.pin.GetPins
 import com.r21nomi.pinboard.ui.BaseActivity
 import com.r21nomi.pinboard.util.DeepLinkRouter
 import com.r21nomi.pinboard.util.ViewUtil

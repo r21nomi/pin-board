@@ -1,6 +1,6 @@
 package com.r21nomi.pinboard.ui.login
 
-import com.r21nomi.core.login.usecase.GetOAuthIntent
+import com.r21nomi.pinboard.domain.login.GetOAuthIntent
 import dagger.Module
 import dagger.Provides
 
