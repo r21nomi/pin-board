@@ -46,6 +46,7 @@ dependencies {
     compile deps.moshi
     compile deps.dagger
     kapt deps.daggerCompiler
+    compile deps.rxJava
     compile deps.rxAndroid
     compile deps.timber
     compile deps.stethoOkhttp  // FIXME: Use debugCompile

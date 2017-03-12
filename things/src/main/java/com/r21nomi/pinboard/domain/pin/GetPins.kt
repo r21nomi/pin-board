@@ -16,7 +16,7 @@ class GetPins @Inject constructor(val loginRepository: LoginRepository, val pinR
     }
 
     fun execute(limit: Int, cursor: String): Observable<PinResponse> {
-        val accessToken = loginRepository.getAccessToken()
+        val accessToken = loginRepository.getAccessTokenFromPref()
         return execute(accessToken, limit, cursor)
     }
 

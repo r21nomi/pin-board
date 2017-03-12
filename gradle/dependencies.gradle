@@ -33,6 +33,7 @@ ext.deps = [
         daggerCompiler : 'com.google.dagger:dagger-compiler:2.7',
 
         // Rx
+        rxJava : 'io.reactivex:rxjava:1.2.7',
         rxAndroid : 'io.reactivex:rxandroid:1.2.1',
 
         // Debug

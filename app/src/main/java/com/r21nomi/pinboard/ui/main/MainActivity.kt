@@ -19,7 +19,6 @@ import com.r21nomi.pinboard.util.WindowUtil
 import com.r21nomi.qiitaclientandroid.ui.adapter.InfiniteScrollRecyclerListener
 import com.yqritc.recyclerviewmultipleviewtypesadapter.ListBindAdapter
 import rx.Completable
-import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import timber.log.Timber
 import javax.inject.Inject
@@ -66,11 +65,12 @@ class MainActivity: BaseActivity() {
             observable = DeepLinkRouter
                     .getAccessToken(uri)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .flatMap { accessToken ->
+                    .toSingle()
+                    .flatMapCompletable { accessToken ->
                         Toast.makeText(this, accessToken, Toast.LENGTH_SHORT).show()
-                        saveAccessToken.execute(accessToken)
-                        return@flatMap Observable.just(null)
-                    }.toCompletable()
+
+                        return@flatMapCompletable saveAccessToken.execute(accessToken)
+                    }
         } else {
             observable = Completable.complete()
         }
