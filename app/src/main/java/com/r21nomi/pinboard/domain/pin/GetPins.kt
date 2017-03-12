@@ -1,7 +1,8 @@
-package com.r21nomi.core.pin.usecase
+package com.r21nomi.pinboard.domain.pin
 
 import com.r21nomi.core.login.usecase.LoginRepository
 import com.r21nomi.core.pin.entity.PinResponse
+import com.r21nomi.core.pin.usecase.PinRepository
 import rx.Observable
 import javax.inject.Inject
 

@@ -2,7 +2,7 @@ package com.r21nomi.pinboard.ui.splash
 
 import android.os.Bundle
 import android.os.Handler
-import com.r21nomi.core.login.usecase.GetAccessToken
+import com.r21nomi.pinboard.domain.login.GetAccessToken
 import com.r21nomi.pinboard.R
 import com.r21nomi.pinboard.ui.BaseActivity
 import com.r21nomi.pinboard.ui.login.LoginActivity
