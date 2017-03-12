@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">pinframe</string>
+    <string name="waiting" translatable="false">Waiting for connection...</string>
 </resources>

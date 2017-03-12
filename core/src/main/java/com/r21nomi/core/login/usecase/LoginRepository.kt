@@ -1,6 +1,7 @@
 package com.r21nomi.core.login.usecase
 
 import android.content.Intent
+import rx.Observable
 
 /**
  * Created by r21nomi on 2017/01/30.
@@ -8,7 +9,11 @@ import android.content.Intent
 interface LoginRepository {
     fun getOAuthIntent(): Intent
 
-    fun saveAccessToken(token: String)
+    fun setAccessTokenToPref(token: String)
 
-    fun getAccessToken(): String
+    fun setAccessTokenToDB(token: String)
+
+    fun getAccessTokenFromPref(): String
+
+    fun observeChanges(): Observable<String>
 }

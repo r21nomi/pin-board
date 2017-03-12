@@ -71,7 +71,7 @@ class MainActivity : BaseActivity() {
 
     private fun fetch(cursor: String) {
         getPins
-                .execute("AWApWVAuzae4I33xYS-HU6cGelymFKBNn1_1J-JDbnFHkUBFmAAAAAA", LIMIT, cursor)  // FIXME: Do not set token here.
+                .execute(LIMIT, cursor)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     Timber.d("data : " + it.data.size)

@@ -64,6 +64,7 @@ dependencies {
     compile deps.fresco
     compile deps.dagger
     kapt deps.daggerCompiler
+    compile deps.rxJava
     compile deps.rxAndroid
     compile deps.timber
     debugCompile deps.stetho

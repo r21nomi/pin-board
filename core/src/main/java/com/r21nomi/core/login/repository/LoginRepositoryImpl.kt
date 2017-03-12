@@ -6,6 +6,7 @@ import android.net.Uri
 import com.r21nomi.core.R
 import com.r21nomi.core.login.usecase.LoginRepository
 import com.r21nomi.core.util.ApiUtil
+import rx.Observable
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -29,12 +30,19 @@ class LoginRepositoryImpl @Inject constructor(val context: Context,
         return Intent(Intent.ACTION_VIEW, Uri.parse(url))
     }
 
-    override fun saveAccessToken(token: String) {
+    override fun setAccessTokenToPref(token: String) {
         accessTokenPref.set(token)
+    }
+
+    override fun setAccessTokenToDB(token: String) {
         accessTokenDao.set(token)
     }
 
-    override fun getAccessToken(): String {
+    override fun getAccessTokenFromPref(): String {
         return accessTokenPref.get()
+    }
+
+    override fun observeChanges(): Observable<String> {
+        return accessTokenDao.observeChanges()
     }
 }
