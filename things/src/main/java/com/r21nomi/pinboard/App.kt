@@ -1,7 +1,6 @@
 package com.r21nomi.pinboard
 
 import android.app.Application
-import com.facebook.drawee.backends.pipeline.Fresco
 import com.google.firebase.FirebaseApp
 import com.r21nomi.pinboard.di.ApplicationComponent
 import com.r21nomi.pinboard.di.ApplicationModule
@@ -10,7 +9,7 @@ import com.r21nomi.pinboard.di.DaggerApplicationComponent
 /**
  * Created by Ryota Niinomi on 2016/09/25.
  */
-open class App: Application() {
+open class App : Application() {
 
     var applicationComponent: ApplicationComponent? = null
 
@@ -19,8 +18,6 @@ open class App: Application() {
 
         FirebaseApp.initializeApp(this)
         initInjector()
-
-        Fresco.initialize(this)
     }
 
     fun initInjector() {

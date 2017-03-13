@@ -3,18 +3,20 @@ package com.r21nomi.pinboard.ui.main
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.net.Uri
 import android.os.Bundle
-import android.support.v7.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
+import com.flaviofaria.kenburnsview.KenBurnsView
+import com.flaviofaria.kenburnsview.Transition
 import com.r21nomi.core.pin.entity.Page
+import com.r21nomi.core.pin.entity.Pin
 import com.r21nomi.pinboard.R
 import com.r21nomi.pinboard.databinding.ActivityMainBinding
 import com.r21nomi.pinboard.domain.pin.GetPins
 import com.r21nomi.pinboard.ui.BaseActivity
-import com.r21nomi.pinboard.ui.common.adapter.InfiniteScrollRecyclerListener
-import com.r21nomi.pinboard.util.WindowUtil
-import com.yqritc.recyclerviewmultipleviewtypesadapter.ListBindAdapter
 import rx.android.schedulers.AndroidSchedulers
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
@@ -26,7 +28,7 @@ class MainActivity : BaseActivity() {
         }
 
         val LIMIT = 50
-        val COLUMN = 2
+        val DIFF = 5
     }
 
     @Inject
@@ -35,11 +37,9 @@ class MainActivity : BaseActivity() {
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     }
-    private val adapter: ListBindAdapter = ListBindAdapter()
-    private val binder: PinBinder by lazy {
-        PinBinder(adapter, WindowUtil.getWidth(this) / 2)
-    }
+    private var dataSet: MutableList<Pin> = ArrayList()
     private var lastPage: Page? = null
+    private var currentImagePosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,22 +49,22 @@ class MainActivity : BaseActivity() {
                 .build()
                 .inject(this)
 
-        initAdapter()
         fetch("")
-    }
 
-    private fun initAdapter() {
-        val gridLayoutManager = StaggeredGridLayoutManager(COLUMN, 1)
-        adapter.addBinder(binder)
-        binding.recyclerView.setHasFixedSize(true)
-        binding.recyclerView.layoutManager = gridLayoutManager
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.addOnScrollListener(object : InfiniteScrollRecyclerListener(gridLayoutManager) {
-            override fun onLoadMore(page: Int, totalItemCount: Int) {
-                if (lastPage == null) {
-                    return
+        binding.kenBurnsView.setTransitionListener(object : KenBurnsView.TransitionListener {
+            override fun onTransitionStart(transition: Transition?) {
+                Timber.v("onTransitionStart")
+            }
+
+            override fun onTransitionEnd(transition: Transition?) {
+                Timber.v("onTransitionEnd")
+
+                currentImagePosition++
+                loadImage()
+
+                if (shouldFetchNext()) {
+                    fetch(lastPage?.cursor ?: "")
                 }
-                fetch(lastPage?.cursor ?: "")
             }
         })
     }
@@ -74,12 +74,29 @@ class MainActivity : BaseActivity() {
                 .execute(LIMIT, cursor)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Timber.d("data : " + it.data.size)
+                    dataSet.addAll(it.data)
                     lastPage = it.page
-                    binder.addDataSet(it.data)
-                    binder.notifyBinderDataSetChanged()
+
+                    if (currentImagePosition == 0) {
+                        loadImage()
+                    }
                 }, {
                     Timber.e(it)
                 })
+    }
+
+    private fun loadImage() {
+        if (currentImagePosition >= dataSet.size - 1) {
+            currentImagePosition = 0
+            return
+        }
+        val uri = Uri.parse(dataSet[currentImagePosition].images.image.url)
+        Glide.with(this)
+                .load(uri)
+                .into(binding.kenBurnsView)
+    }
+
+    private fun shouldFetchNext(): Boolean {
+        return dataSet.size > 0 && (dataSet.size - 1) - currentImagePosition < DIFF
     }
 }

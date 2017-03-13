@@ -63,7 +63,8 @@ dependencies {
     compile deps.recyclerView
     compile deps.cardview
     compile deps.recyclerviewMultipleViewtypesAdapter
-    compile deps.fresco
+    compile deps.kenBurnsView
+    compile deps.glide
     compile deps.dagger
     kapt deps.daggerCompiler
     compile deps.rxJava
