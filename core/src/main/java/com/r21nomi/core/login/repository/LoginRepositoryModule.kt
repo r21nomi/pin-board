@@ -17,7 +17,5 @@ class LoginRepositoryModule {
 
     interface Provider {
         fun loginRepository(): LoginRepository
-        fun accessTokenDao(): AccessTokenDao
-        fun accessTokenPref(): AccessTokenPref
     }
 }
