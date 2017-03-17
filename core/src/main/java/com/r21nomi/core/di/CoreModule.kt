@@ -51,6 +51,10 @@ class CoreModule {
         return FirebaseDatabase.getInstance()
     }
 
+    /**
+     * Define only classes which are used in another module.
+     * These classes can be used in another module.
+     */
     interface Provider :
             LoginRepositoryModule.Provider,
             PinRepositoryModule.Provider {
