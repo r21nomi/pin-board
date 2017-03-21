@@ -14,6 +14,12 @@ buildscript {
     }
 }
 
+def static getSecretValue(name){
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File("secrets.properties")))
+    return props[name]
+}
+
 android {
     compileSdkVersion COMPILE_SDK_VERSION
     buildToolsVersion BUILDTOOLS_VERSION
@@ -24,7 +30,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "PINTEREST_API_CLIENT_ID", "\"${PINTEREST_API_CLIENT_ID}\"")
+        buildConfigField("String", "PINTEREST_API_CLIENT_ID", "\"" + getSecretValue("PINTEREST_API_CLIENT_ID") + "\"")
     }
     buildTypes {
         release {
