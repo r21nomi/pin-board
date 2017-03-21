@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
-import android.widget.Toast
 import com.r21nomi.core.pin.entity.Page
 import com.r21nomi.pinboard.R
 import com.r21nomi.pinboard.databinding.ActivityMainBinding
@@ -67,8 +66,6 @@ class MainActivity: BaseActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .toSingle()
                     .flatMapCompletable { accessToken ->
-                        Toast.makeText(this, accessToken, Toast.LENGTH_SHORT).show()
-
                         return@flatMapCompletable saveAccessToken.execute(accessToken)
                     }
         } else {
