@@ -1,4 +1,3 @@
 <resources>
     <string name="oauth_url" translatable="false">https://api.pinterest.com/oauth/</string>
-    <string name="client_id" translatable="false">4858660564695526217</string>
 </resources>
