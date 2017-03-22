@@ -16,11 +16,22 @@ You have to do some things to build project.
   2. Create two apps onto the project  
      These package names are `com.r21nomi.pinboard` and `com.r21nomi.pinboard.debug`
   3. Download `google-services.json` and place it under app directory
+  4. Fix database rules  
+     WARNING: This settings has no security.  
+     This should be used for development.
+  ```
+  {
+      "rules": {
+          ".read": true,
+          ".write": true
+      }
+  }
+  ```
 
 ## Setup for Android Things
 You have to setup hardware to build `things` module.
   1. See https://developer.android.com/things/hardware/developer-kits.html
-  
+
 ## License
 ```
 Copyright 2017 Ryota Takemoto (r21nomi)
