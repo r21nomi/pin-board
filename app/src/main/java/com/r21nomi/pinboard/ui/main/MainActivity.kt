@@ -19,6 +19,7 @@ import com.r21nomi.qiitaclientandroid.ui.adapter.InfiniteScrollRecyclerListener
 import com.yqritc.recyclerviewmultipleviewtypesadapter.ListBindAdapter
 import rx.Completable
 import rx.android.schedulers.AndroidSchedulers
+import rx.functions.Func0
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -43,7 +44,7 @@ class MainActivity: BaseActivity() {
     }
     private val adapter: ListBindAdapter = ListBindAdapter()
     private val binder: PinBinder by lazy {
-        PinBinder(adapter, WindowUtil.getWidth(this) / 2)
+        PinBinder(adapter, WindowUtil.getWidth(this) / 2, Func0 { return@Func0 this })
     }
     private var lastPage: Page ?= null
 
