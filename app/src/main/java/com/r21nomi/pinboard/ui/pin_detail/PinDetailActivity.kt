@@ -3,6 +3,7 @@ package com.r21nomi.pinboard.ui.pin_detail
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.FragmentTransaction
+import com.r21nomi.core.pin.entity.Pin
 import com.r21nomi.pinboard.R
 import com.r21nomi.pinboard.databinding.ActivityPinDetailBinding
 import com.r21nomi.pinboard.ui.BaseActivity
@@ -14,6 +15,9 @@ class PinDetailActivity : BaseActivity<PinDetailComponent>() {
 
     private val binding: ActivityPinDetailBinding by lazy {
         DataBindingUtil.setContentView<ActivityPinDetailBinding>(this, R.layout.activity_pin_detail)
+    }
+    val pin: Pin by lazy {
+        intent.getParcelableExtra<Pin>(KEY_PIN)
     }
 
     override fun buildComponent(): PinDetailComponent {
@@ -29,10 +33,12 @@ class PinDetailActivity : BaseActivity<PinDetailComponent>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.viewModel = PinDetailViewModel(intent.getParcelableExtra(KEY_PIN))
+        binding.container // TODO: delete
+
+        val pin: Pin = intent.getParcelableExtra(KEY_PIN)
 
         supportFragmentManager.beginTransaction()
-                .replace(R.id.container, PinDetailFragment.newInstance())
+                .replace(R.id.container, PinDetailFragment.newInstance(pin))
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit()
     }

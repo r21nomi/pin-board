@@ -11,7 +11,6 @@ import com.r21nomi.pinboard.databinding.ViewholderPinBinding
 import com.yqritc.recyclerviewmultipleviewtypesadapter.DataBindAdapter
 import com.yqritc.recyclerviewmultipleviewtypesadapter.DataBinder
 import rx.functions.Func0
-import java.util.*
 
 /**
  * Created by r21nomi on 2017/02/05.
