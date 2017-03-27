@@ -23,7 +23,7 @@ import rx.functions.Func0
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivity: BaseActivity() {
+class MainActivity: BaseActivity<MainComponent>() {
 
     companion object {
         fun createIntent(context: Context): Intent {
@@ -48,13 +48,18 @@ class MainActivity: BaseActivity() {
     }
     private var lastPage: Page ?= null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        DaggerMainComponent.builder()
+    override fun buildComponent(): MainComponent {
+        return DaggerMainComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .build()
-                .inject(this)
+    }
+
+    override fun injectDependency(component: MainComponent) {
+        component.inject(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         initAdapter()
 

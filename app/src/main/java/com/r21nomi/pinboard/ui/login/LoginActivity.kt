@@ -9,7 +9,7 @@ import com.r21nomi.pinboard.databinding.ActivityLoginBinding
 import com.r21nomi.pinboard.ui.BaseActivity
 import javax.inject.Inject
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : BaseActivity<LoginComponent>() {
 
     @Inject
     lateinit var loginViewModel: LoginViewModel
@@ -25,13 +25,18 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        DaggerLoginComponent.builder()
+    override fun buildComponent(): LoginComponent {
+        return DaggerLoginComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .build()
-                .inject(this)
+    }
+
+    override fun injectDependency(component: LoginComponent) {
+        component.inject(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         binding.viewModel = loginViewModel
     }
