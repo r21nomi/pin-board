@@ -30,14 +30,10 @@ class PinBinder(dataBindAdapter: DataBindAdapter,
 
     override fun bindViewHolder(holder: ViewHolder, position: Int) {
         val item: Pin = dataSet[position]
-        val viewModel = PinBinderViewModel(getActivityFun.call())
+        val viewModel = PinBinderViewModel(getActivityFun.call(), maximumItemWidth)
 
         holder.binding.viewModel = viewModel
         viewModel.setItem(item)
-
-        val param = holder.binding.thumb.layoutParams
-        param.height = item.images.image.height * maximumItemWidth / item.images.image.width
-        holder.binding.thumb.layoutParams = param
     }
 
     override fun getItemCount(): Int {
