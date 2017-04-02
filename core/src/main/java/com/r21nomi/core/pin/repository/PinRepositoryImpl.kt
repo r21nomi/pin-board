@@ -14,7 +14,7 @@ import javax.inject.Singleton
 class PinRepositoryImpl @Inject constructor(val pinApi: PinApi) : PinRepository {
 
     companion object {
-        val FIELDS = "id,creator,note,image"
+        val FIELDS = "id,creator(username,image),note,image"
     }
 
     override fun fetchPins(accessToken: String, limit: Int, cursor: String): Observable<PinResponse> {

@@ -9,9 +9,8 @@ import com.squareup.moshi.Json
  */
 data class Creator(
         @Json(name = "id") val id: String,
-        @Json(name = "url") val url: String,
-        @Json(name = "first_name") val firstName: String,
-        @Json(name = "last_name") val lastName: String
+        @Json(name = "username") val username: String,
+        @Json(name = "image") val creatorImage: CreatorImage
 ) : Parcelable {
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<Creator> = object : Parcelable.Creator<Creator> {
@@ -20,14 +19,13 @@ data class Creator(
         }
     }
 
-    constructor(source: Parcel) : this(source.readString(), source.readString(), source.readString(), source.readString())
+    constructor(source: Parcel) : this(source.readString(), source.readString(), source.readParcelable<CreatorImage>(CreatorImage::class.java.classLoader))
 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeString(id)
-        dest?.writeString(url)
-        dest?.writeString(firstName)
-        dest?.writeString(lastName)
+        dest?.writeString(username)
+        dest?.writeParcelable(creatorImage, 0)
     }
 }
