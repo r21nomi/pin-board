@@ -1,13 +1,13 @@
 package com.r21nomi.pinboard.ui.pin_detail
 
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import com.facebook.drawee.drawable.ScalingUtils
+import com.facebook.drawee.drawable.ScalingUtils.ScaleType.CENTER_CROP
+import com.facebook.drawee.drawable.ScalingUtils.ScaleType.FIT_CENTER
 import com.facebook.drawee.view.DraweeTransition
 import com.r21nomi.core.pin.entity.Pin
 import com.r21nomi.pinboard.R
@@ -59,8 +59,8 @@ class PinDetailFragment : BaseFragment<PinDetailFragment.Component>() {
         postponeEnterTransition()
 
         // These are necessary for shared element transition with SimpleDraweeView.
-        activity.window.sharedElementEnterTransition = DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP, ScalingUtils.ScaleType.FIT_CENTER)
-        activity.window.sharedElementReturnTransition = DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.FIT_CENTER, ScalingUtils.ScaleType.CENTER_CROP)
+        activity.window.sharedElementEnterTransition = DraweeTransition.createTransitionSet(CENTER_CROP, FIT_CENTER)
+        activity.window.sharedElementReturnTransition = DraweeTransition.createTransitionSet(FIT_CENTER, CENTER_CROP)
 
         return view
     }
@@ -74,11 +74,7 @@ class PinDetailFragment : BaseFragment<PinDetailFragment.Component>() {
     fun init() {
         ViewCompat.setTransitionName(binding.thumb, Navigator.SHARED_ELEMENT_NAME)
 
-        binding.thumb.setImageURI(Uri.parse(pin.images.image.url), null)
-
-        val param = binding.thumb.layoutParams
-        param.height = pin.images.image.height * WindowUtil.getWidth(activity) / pin.images.image.width
-        binding.thumb.layoutParams = param
+        binding.viewModel = PinDetailViewModel(pin, WindowUtil.getWidth(activity))
 
         binding.thumb.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {

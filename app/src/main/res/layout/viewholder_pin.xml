@@ -20,7 +20,8 @@
             android:id="@+id/thumb"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:imageUrl="@{viewModel.pin.images.image.url}"
+            app:image="@{viewModel.pin.images.image}"
+            app:maximumItemWidth="@{viewModel.maximumItemWidth}"
             android:onClick="@{viewModel::onThumbClick}"/>
     </android.support.v7.widget.CardView>
 </layout>

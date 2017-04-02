@@ -9,7 +9,7 @@ import com.r21nomi.pinboard.ui.Navigator
 /**
  * Created by r21nomi on 2017/03/24.
  */
-class PinBinderViewModel(private val activity: Activity) {
+class PinBinderViewModel(private val activity: Activity, val maximumItemWidth: Int) {
 
     var pin: ObservableField<Pin> = ObservableField()
 
