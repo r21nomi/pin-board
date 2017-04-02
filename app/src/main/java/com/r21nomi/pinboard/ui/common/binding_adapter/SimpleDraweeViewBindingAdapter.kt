@@ -3,6 +3,7 @@ package com.r21nomi.pinboard.ui.common.binding_adapter
 import android.databinding.BindingAdapter
 import android.net.Uri
 import com.facebook.drawee.view.SimpleDraweeView
+import com.r21nomi.core.pin.entity.CreatorImage
 import com.r21nomi.core.pin.entity.Image
 
 /**
@@ -17,5 +18,11 @@ object SimpleDraweeViewBindingAdapter {
         val param = view.layoutParams
         param.height = image.height * maximumItemWidth / image.width
         view.layoutParams = param
+    }
+
+    @JvmStatic
+    @BindingAdapter("thumb")
+    fun loadThumb(view: SimpleDraweeView, creatorImage: CreatorImage) {
+        view.setImageURI(Uri.parse(creatorImage.image.url), null)
     }
 }
