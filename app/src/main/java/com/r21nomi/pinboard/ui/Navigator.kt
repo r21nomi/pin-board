@@ -22,19 +22,19 @@ class Navigator {
             val intent = Intent(activity, PinDetailActivity::class.java)
             intent.putExtra(KEY_PIN, pin)
 
-            val statusBar = activity.findViewById(android.R.id.statusBarBackground)
-            val navigationBar = activity.findViewById(android.R.id.navigationBarBackground)
-            val actionBar = ViewUtil.getActionBar(activity)
+            val statusBar:View? = activity.findViewById(android.R.id.statusBarBackground)
+            val navigationBar:View? = activity.findViewById(android.R.id.navigationBarBackground)
+            val actionBar:View? = ViewUtil.getActionBarWithTransitionName(activity)
 
             val pairs = ArrayList<Pair<View, String>>()
             if (statusBar != null) {
-                pairs.add(Pair.create<View, String>(statusBar, statusBar!!.getTransitionName()))
+                pairs.add(Pair.create<View, String>(statusBar, statusBar.getTransitionName()))
             }
             if (navigationBar != null) {
-                pairs.add(Pair.create<View, String>(navigationBar, navigationBar!!.getTransitionName()))
+                pairs.add(Pair.create<View, String>(navigationBar, navigationBar.getTransitionName()))
             }
             if (actionBar != null) {
-                pairs.add(Pair.create<View, String>(actionBar, actionBar!!.getTransitionName()))
+                pairs.add(Pair.create<View, String>(actionBar, actionBar.getTransitionName()))
             }
             pairs.add(Pair.create<View, String>(sharedElementView, SHARED_ELEMENT_NAME))
 

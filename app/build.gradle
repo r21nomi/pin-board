@@ -62,6 +62,7 @@ dependencies {
     compile deps.firebaseCrash
     compile deps.recyclerviewMultipleViewtypesAdapter
     compile deps.fresco
+    compile deps.androidRPInterpolator
     compile deps.dagger
     kapt deps.daggerCompiler
     compile deps.rxJava

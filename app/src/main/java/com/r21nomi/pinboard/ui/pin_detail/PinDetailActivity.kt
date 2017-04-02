@@ -10,6 +10,7 @@ import com.r21nomi.pinboard.ui.BaseActivity
 import com.r21nomi.pinboard.ui.Navigator.Companion.KEY_PIN
 import com.r21nomi.pinboard.ui.pin_detail.di.DaggerPinDetailComponent
 import com.r21nomi.pinboard.ui.pin_detail.di.PinDetailComponent
+import com.r21nomi.pinboard.util.ViewUtil
 
 class PinDetailActivity : BaseActivity<PinDetailComponent>() {
 
@@ -35,7 +36,7 @@ class PinDetailActivity : BaseActivity<PinDetailComponent>() {
 
         binding.container // TODO: delete
 
-        val pin: Pin = intent.getParcelableExtra(KEY_PIN)
+        ViewUtil.getActionBarWithTransitionName(this)
 
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, PinDetailFragment.newInstance(pin))
