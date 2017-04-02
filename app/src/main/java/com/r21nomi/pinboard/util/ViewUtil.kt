@@ -20,7 +20,7 @@ class ViewUtil {
             Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
         }
 
-        fun getActionBar(activity: Activity): View {
+        fun getActionBarWithTransitionName(activity: Activity): View {
             val decor = activity.window.decorView
             val actionBarId = R.id.action_bar_container
             val actionBar = decor.findViewById(actionBarId)
