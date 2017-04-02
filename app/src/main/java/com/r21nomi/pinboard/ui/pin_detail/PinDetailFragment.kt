@@ -68,13 +68,16 @@ class PinDetailFragment : BaseFragment<PinDetailFragment.Component>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        init()
+        binding.viewModel = PinDetailViewModel(pin, WindowUtil.getWidth(activity))
+
+        initTransition()
     }
 
-    fun init() {
+    fun initTransition() {
         ViewCompat.setTransitionName(binding.thumb, Navigator.SHARED_ELEMENT_NAME)
 
-        binding.viewModel = PinDetailViewModel(pin, WindowUtil.getWidth(activity))
+        activity.window.sharedElementEnterTransition = DetailTransitionSet()
+        activity.window.sharedElementReturnTransition = DetailTransitionSet()
 
         binding.thumb.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {
