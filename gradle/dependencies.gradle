@@ -1,7 +1,7 @@
 ext.versions = [
-        KOTLIN_VERSION : '1.1.0',
-        SUPPORT_LIBRARY_VERSION : '25.2.0',
-        PLAY_SERVICES_VERSION : '10.2.0'
+        KOTLIN_VERSION : '1.1.1',
+        SUPPORT_LIBRARY_VERSION : '25.3.1',
+        PLAY_SERVICES_VERSION : '10.2.1'
 ]
 
 ext.deps = [
@@ -32,16 +32,16 @@ ext.deps = [
         moshi : 'com.squareup.moshi:moshi:1.3.1',
 
         // DI
-        dagger : 'com.google.dagger:dagger:2.7',
-        daggerCompiler : 'com.google.dagger:dagger-compiler:2.7',
+        dagger : 'com.google.dagger:dagger:2.10',
+        daggerCompiler : 'com.google.dagger:dagger-compiler:2.10',
 
         // Rx
-        rxJava : 'io.reactivex:rxjava:1.2.7',
+        rxJava : 'io.reactivex:rxjava:1.2.9',
         rxAndroid : 'io.reactivex:rxandroid:1.2.1',
 
         // Debug
-        timber : 'com.jakewharton.timber:timber:4.3.1',
-        stetho : 'com.facebook.stetho:stetho:1.4.1',
+        timber : 'com.jakewharton.timber:timber:4.5.1',
+        stetho : 'com.facebook.stetho:stetho:1.4.2',
         stethoOkhttp : 'com.facebook.stetho:stetho-okhttp3:1.4.1',
 
         // Test
