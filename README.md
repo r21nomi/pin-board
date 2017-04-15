@@ -31,6 +31,8 @@ You have to do some things to build project.
 ## Setup for Android Things
 You have to setup hardware to build `things` module.
   1. See https://developer.android.com/things/hardware/developer-kits.html
+  2. Wiring  
+  <img src="art/wiring.png" width=300/>
 
 ## License
 ```
