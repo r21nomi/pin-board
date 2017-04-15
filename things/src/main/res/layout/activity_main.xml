@@ -9,10 +9,23 @@
             type="com.r21nomi.pinboard.ui.main.MainViewModel" />
     </data>
 
-    <com.flaviofaria.kenburnsview.KenBurnsView
-        android:id="@+id/kenBurnsView"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:image="@{viewModel.uri}"
-        app:transitionListener="@{viewModel.transitionListener}"/>
+        android:layout_height="match_parent">
+
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:id="@+id/kenBurnsView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:alpha="@{viewModel.alpha_1}"
+            app:image="@{viewModel.uri_1}"
+            app:transitionListener="@{viewModel.transitionListener}" />
+
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:id="@+id/kenBurnsView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:alpha="@{viewModel.alpha_2}"
+            app:image="@{viewModel.uri_2}" />
+    </FrameLayout>
 </layout>
