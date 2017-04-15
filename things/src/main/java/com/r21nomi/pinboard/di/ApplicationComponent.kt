@@ -1,7 +1,9 @@
 package com.r21nomi.pinboard.di
 
+import android.content.Context
 import com.r21nomi.core.di.CoreModule
 import com.r21nomi.pinboard.ui.login.LoginModule
+import com.r21nomi.pinboard.ui.main.MainModule
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,8 +15,10 @@ import javax.inject.Singleton
         modules = arrayOf(
                 ApplicationModule::class,
                 CoreModule::class,
-                LoginModule::class
+                LoginModule::class,
+                MainModule::class
         )
 )
 interface ApplicationComponent : CoreModule.Provider {
+        fun applicationContext(): Context
 }
