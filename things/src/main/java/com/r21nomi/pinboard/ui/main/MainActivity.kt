@@ -40,4 +40,9 @@ class MainActivity : BaseActivity() {
 
         mainViewModel.fetch("")
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mainViewModel.onDestroy()
+    }
 }

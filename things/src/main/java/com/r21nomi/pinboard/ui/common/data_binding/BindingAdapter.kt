@@ -1,4 +1,4 @@
-package com.r21nomi.pinboard.ui.common.adapter
+package com.r21nomi.pinboard.ui.common.data_binding
 
 import android.databinding.BindingAdapter
 import android.net.Uri
