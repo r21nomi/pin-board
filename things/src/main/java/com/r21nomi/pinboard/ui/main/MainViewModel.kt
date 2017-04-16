@@ -1,7 +1,13 @@
 package com.r21nomi.pinboard.ui.main
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ValueAnimator
 import android.databinding.ObservableField
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import com.flaviofaria.kenburnsview.KenBurnsView
 import com.flaviofaria.kenburnsview.Transition
 import com.google.android.things.pio.Gpio
@@ -21,23 +27,72 @@ import java.util.*
  */
 class MainViewModel(val getPins: GetPins) {
 
-    val uri: ObservableField<Uri> = ObservableField()
+    companion object {
+        val LIMIT = 50
+        val DIFF = 5
+    }
+
+    val uri_1: ObservableField<Uri> = ObservableField()
+    val uri_2: ObservableField<Uri> = ObservableField()
+    val alpha_1: ObservableField<Float> = ObservableField()
+    val alpha_2: ObservableField<Float> = ObservableField()
 
     val transitionListener = object : KenBurnsView.TransitionListener {
         override fun onTransitionStart(transition: Transition?) {
             Timber.v("onTransitionStart")
+
+            val duration = transition?.duration ?: 0
+            val offset: Long = duration / 5
+
+            if (duration - offset > 0) {
+                handler.removeCallbacks(runnable)
+                runnable = object : Runnable {
+                    override fun run() {
+                        startCrossFading(offset)
+                    }
+                }
+                handler.postDelayed(runnable, duration - offset)
+            }
         }
 
         override fun onTransitionEnd(transition: Transition?) {
             Timber.v("onTransitionEnd")
-
-            skipToNextImage()
         }
+    }
+
+    private val handler: Handler = Handler(Looper.getMainLooper())
+
+    private var runnable: Runnable? = null
+    private var nextForegroundTarget: Target = Target.TARGET_1
+
+    private enum class Target {
+        TARGET_1 {
+            override fun getUri(viewModel: MainViewModel): ObservableField<Uri> {
+                return viewModel.uri_1
+            }
+
+            override fun getAlpha(viewModel: MainViewModel): ObservableField<Float> {
+                return viewModel.alpha_1
+            }
+        },
+        TARGET_2 {
+            override fun getUri(viewModel: MainViewModel): ObservableField<Uri> {
+                return viewModel.uri_2
+            }
+
+            override fun getAlpha(viewModel: MainViewModel): ObservableField<Float> {
+                return viewModel.alpha_2
+            }
+        };
+
+        abstract fun getUri(viewModel: MainViewModel): ObservableField<Uri>
+        abstract fun getAlpha(viewModel: MainViewModel): ObservableField<Float>
     }
 
     private var dataSet: MutableList<Pin> = ArrayList()
     private var lastPage: Page? = null
-    private var currentImagePosition: Int = 0
+    private var latestFetchedImagePosition: Int = 0
+
     private val nextButtonGpio: Gpio by lazy {
         val service = PeripheralManagerService()
         val skipNextPinName = BoardUtil.RPI3_PIN_21
@@ -51,7 +106,10 @@ class MainViewModel(val getPins: GetPins) {
 
     init {
         // This is necessary to avoid "IllegalArgumentException: Parameter specified as non-null is null"
-        uri.set(Uri.EMPTY)
+        uri_1.set(Uri.EMPTY)
+        uri_2.set(Uri.EMPTY)
+        alpha_1.set(1f)
+        alpha_2.set(0f)
 
         initGpio()
     }
@@ -61,14 +119,16 @@ class MainViewModel(val getPins: GetPins) {
      */
     fun fetch(cursor: String) {
         getPins
-                .execute(MainActivity.LIMIT, cursor)
+                .execute(LIMIT, cursor)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     dataSet.addAll(it.data)
                     lastPage = it.page
 
-                    if (currentImagePosition == 0) {
+                    if (latestFetchedImagePosition == 0) {
+                        // Load foreground image and background image at the first time.
                         loadImage()
+                        preLoadImage()
                     }
                 }, {
                     Timber.e(it)
@@ -112,13 +172,59 @@ class MainViewModel(val getPins: GetPins) {
         }
     }
 
+    private fun startCrossFading(duration: Long) {
+        val foregroundAnimator: ValueAnimator = ValueAnimator.ofFloat(1f, 0f).apply {
+            addUpdateListener {
+                getNextForegroundTarget().getAlpha(this@MainViewModel).set(it.animatedValue as Float)
+            }
+        }
+
+        val backgroundAnimator: ValueAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
+            addUpdateListener {
+                getNextBackgroundTarget().getAlpha(this@MainViewModel).set(it.animatedValue as Float)
+            }
+        }
+
+        AnimatorSet().run {
+            playTogether(
+                    foregroundAnimator,
+                    backgroundAnimator
+            )
+            setDuration(duration)
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    // Prepare for next image.
+                    prepareForNextImage()
+                }
+            })
+            start()
+        }
+    }
+
+    private fun switchTarget() {
+        if (nextForegroundTarget == Target.TARGET_1) {
+            nextForegroundTarget = Target.TARGET_2
+        } else {
+            nextForegroundTarget = Target.TARGET_1
+        }
+    }
+
+    /**
+     * This should be called after cross fading.
+     */
+    private fun prepareForNextImage() {
+        skipToNextImage()
+        switchTarget()
+    }
+
     private fun skipToPrevImage() {
-        currentImagePosition--
+        latestFetchedImagePosition--
         loadImage()
     }
 
     private fun skipToNextImage() {
-        currentImagePosition++
+        latestFetchedImagePosition++
         loadImage()
 
         if (shouldFetchNext()) {
@@ -127,16 +233,40 @@ class MainViewModel(val getPins: GetPins) {
     }
 
     private fun shouldFetchNext(): Boolean {
-        return dataSet.size > 0 && (dataSet.size - 1) - currentImagePosition < MainActivity.DIFF
+        return dataSet.size > 0 && (dataSet.size - 1) - latestFetchedImagePosition < DIFF
     }
 
     private fun loadImage() {
-        if (currentImagePosition >= dataSet.size - 1) {
-            currentImagePosition = 0
+        if (latestFetchedImagePosition >= dataSet.size - 1) {
+            latestFetchedImagePosition = 0
 
-        } else if (currentImagePosition < 0) {
-            currentImagePosition = dataSet.size - 1
+        } else if (latestFetchedImagePosition < 0) {
+            latestFetchedImagePosition = dataSet.size - 1
         }
-        uri.set(Uri.parse(dataSet[currentImagePosition].images.image.url))
+        getNextForegroundTarget().getUri(this).set(Uri.parse(dataSet[latestFetchedImagePosition].images.image.url))
+    }
+
+    /**
+     * This should be called on first fetching.
+     */
+    private fun preLoadImage() {
+        latestFetchedImagePosition++
+
+        if (latestFetchedImagePosition >= dataSet.size - 1) {
+            latestFetchedImagePosition = 0
+        }
+        getNextBackgroundTarget().getUri(this).set(Uri.parse(dataSet[latestFetchedImagePosition].images.image.url))
+    }
+
+    private fun getNextForegroundTarget(): Target {
+        return nextForegroundTarget
+    }
+
+    private fun getNextBackgroundTarget(): Target {
+        if (nextForegroundTarget == Target.TARGET_1) {
+            return Target.TARGET_2
+        } else {
+            return Target.TARGET_1
+        }
     }
 }

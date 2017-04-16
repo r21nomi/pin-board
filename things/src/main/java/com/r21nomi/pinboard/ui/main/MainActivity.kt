@@ -16,9 +16,6 @@ class MainActivity : BaseActivity() {
             val intent = Intent(context, MainActivity::class.java)
             return intent
         }
-
-        val LIMIT = 50
-        val DIFF = 5
     }
 
     @Inject
