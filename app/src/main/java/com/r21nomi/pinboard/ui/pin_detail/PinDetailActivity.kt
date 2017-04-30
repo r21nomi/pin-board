@@ -80,10 +80,10 @@ class PinDetailActivity : BaseActivity<PinDetailComponent>(), PinDetailFragment.
                     })
 
                     setEnterSharedElementCallback(object : SharedElementCallback() {
-                        override fun onMapSharedElements(names: List<String>?, sharedElements: MutableMap<String, View>?) {
+                        override fun onMapSharedElements(names: List<String>, sharedElements: MutableMap<String, View>) {
                             val position = binding.viewPager.currentItem
                             val view = binding.viewPager.findViewWithTag(PinDetailFragment.getTag(position))
-                            sharedElements!!.clear()
+                            sharedElements.clear()
                             sharedElements.put(Navigator.SHARED_ELEMENT_NAME, view)
                         }
                     })
