@@ -12,10 +12,8 @@ import com.facebook.drawee.view.DraweeTransition
 import com.r21nomi.core.pin.entity.Pin
 import com.r21nomi.pinboard.R
 import com.r21nomi.pinboard.databinding.FragmentPinDetailBinding
-import com.r21nomi.pinboard.domain.pin.GetPins
 import com.r21nomi.pinboard.ui.BaseFragment
 import com.r21nomi.pinboard.ui.Navigator
-import com.r21nomi.pinboard.util.WindowUtil
 import javax.inject.Inject
 
 /**
@@ -24,7 +22,12 @@ import javax.inject.Inject
 class PinDetailFragment : BaseFragment<PinDetailFragment.Component>() {
 
     companion object {
-        val KEY_PIN = "key_pin"
+        private val KEY_PIN = "key_pin"
+        private val TAG_PREFIX = "tag_item"
+
+        fun getTag(position: Int): String {
+            return TAG_PREFIX + position
+        }
 
         fun newInstance(pin: Pin): PinDetailFragment {
             val fragment = PinDetailFragment()
@@ -35,15 +38,17 @@ class PinDetailFragment : BaseFragment<PinDetailFragment.Component>() {
         }
     }
 
-    val pin: Pin by lazy {
-        arguments.getParcelable<Pin>(KEY_PIN)
-    }
-    val binding: FragmentPinDetailBinding by lazy {
-        FragmentPinDetailBinding.bind(view)
-    }
+    // If you use lazy, data binding does not work correctly.
+    private lateinit var binding: FragmentPinDetailBinding
+
+    private val listener: Listener by lazy { activity as Listener }
+
+    private val pin: Pin by lazy { arguments.getParcelable<Pin>(KEY_PIN) }
+
+    private var tagName: String = ""
 
     @Inject
-    lateinit var getPins: GetPins
+    lateinit var viewModel: PinDetailViewModel
 
     override fun getLayout(): Int {
         return R.layout.fragment_pin_detail
@@ -56,24 +61,32 @@ class PinDetailFragment : BaseFragment<PinDetailFragment.Component>() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
-        postponeEnterTransition()
+        binding = FragmentPinDetailBinding.bind(view)
+
+        binding.pin = pin
+        binding.viewModel = viewModel
+
+        // Set tag name to shared element view.
+        binding.thumb.tag = tagName
 
         // These are necessary for shared element transition with SimpleDraweeView.
         activity.window.sharedElementEnterTransition = DraweeTransition.createTransitionSet(CENTER_CROP, FIT_CENTER)
         activity.window.sharedElementReturnTransition = DraweeTransition.createTransitionSet(FIT_CENTER, CENTER_CROP)
 
+        initTransition()
+
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        binding.viewModel = PinDetailViewModel(pin, WindowUtil.getWidth(activity))
-
-        initTransition()
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 
-    fun initTransition() {
+    fun setTag(position: Int) {
+        tagName = getTag(position)
+    }
+
+    private fun initTransition() {
         ViewCompat.setTransitionName(binding.thumb, Navigator.SHARED_ELEMENT_NAME)
 
         activity.window.sharedElementEnterTransition = DetailTransitionSet()
@@ -82,7 +95,7 @@ class PinDetailFragment : BaseFragment<PinDetailFragment.Component>() {
         binding.thumb.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {
                 binding.thumb.viewTreeObserver.removeOnPreDrawListener(this)
-                startPostponedEnterTransition()
+                listener.onSharedElementViewPreDrawn()
                 return true
             }
         })
@@ -90,5 +103,9 @@ class PinDetailFragment : BaseFragment<PinDetailFragment.Component>() {
 
     interface Component {
         fun inject(fragment: PinDetailFragment)
+    }
+
+    interface Listener {
+        fun onSharedElementViewPreDrawn()
     }
 }

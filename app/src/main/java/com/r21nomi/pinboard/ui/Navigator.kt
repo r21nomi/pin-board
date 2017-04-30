@@ -18,9 +18,10 @@ class Navigator {
         val KEY_PIN = "pin"
         val SHARED_ELEMENT_NAME = "shared_element_name"
 
-        fun startPinDetail(activity: Activity, sharedElementView: View, pin: Pin) {
+        fun startPinDetail(activity: Activity, sharedElementView: View, pin: Pin, position: Int) {
             val intent = Intent(activity, PinDetailActivity::class.java)
             intent.putExtra(KEY_PIN, pin)
+            intent.putExtra(PinDetailActivity.POSITION, position)
 
             val statusBar:View? = activity.findViewById(android.R.id.statusBarBackground)
             val navigationBar:View? = activity.findViewById(android.R.id.navigationBarBackground)

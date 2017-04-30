@@ -6,10 +6,13 @@
     <data>
 
         <variable
+            name="pin"
+            type="com.r21nomi.core.pin.entity.Pin" />
+
+        <variable
             name="viewModel"
             type="com.r21nomi.pinboard.ui.pin_detail.PinDetailViewModel" />
     </data>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,7 +27,7 @@
                 android:id="@+id/thumb"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:image="@{viewModel.pin.images.image}"
+                app:image="@{pin.images.image}"
                 app:maximumItemWidth="@{viewModel.maximumItemWidth}" />
 
             <LinearLayout
@@ -40,19 +43,19 @@
                 <com.facebook.drawee.view.SimpleDraweeView
                     style="@style/AppTheme.ItemImageStyle.CreatorThumb"
                     android:layout_marginEnd="8dp"
-                    app:thumb="@{viewModel.pin.creator.creatorImage}"
+                    app:thumb="@{pin.creator.creatorImage}"
                     fresco:roundAsCircle="true" />
 
                 <TextView
                     style="@style/AppTheme.ItemTextStyle.CreatorName"
-                    android:text="@{viewModel.pin.creator.username}" />
+                    android:text="@{pin.creator.username}" />
             </LinearLayout>
 
             <TextView
                 style="@style/AppTheme.ItemTextStyle.Note"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:text="@{viewModel.pin.note}" />
+                android:text="@{pin.note}" />
         </LinearLayout>
     </ScrollView>
 </layout>
