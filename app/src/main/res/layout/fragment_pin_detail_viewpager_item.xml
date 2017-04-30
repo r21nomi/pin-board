@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="pin"
+            type="com.r21nomi.core.pin.entity.Pin" />
+
+        <variable
+            name="viewModel"
+            type="com.r21nomi.pinboard.ui.pin_detail.PinDetailViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/thumb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:image="@{pin.images.image}"
+            app:maximumItemWidth="@{viewModel.maximumItemWidth}" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                style="@style/AppTheme.ItemImageStyle.CreatorThumb"
+                android:layout_marginEnd="8dp"
+                app:thumb="@{pin.creator.creatorImage}"
+                fresco:roundAsCircle="true" />
+
+            <TextView
+                style="@style/AppTheme.ItemTextStyle.CreatorName"
+                android:text="@{pin.creator.username}" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/AppTheme.ItemTextStyle.Note"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@{pin.note}" />
+    </LinearLayout>
+</layout>

@@ -33,7 +33,7 @@ class PinBinder(dataBindAdapter: DataBindAdapter,
         val viewModel = PinBinderViewModel(getActivityFun.call(), maximumItemWidth)
 
         holder.binding.viewModel = viewModel
-        viewModel.setItem(item)
+        viewModel.setItem(item, position)
     }
 
     override fun getItemCount(): Int {

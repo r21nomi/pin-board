@@ -12,12 +12,14 @@ import com.r21nomi.pinboard.ui.Navigator
 class PinBinderViewModel(private val activity: Activity, val maximumItemWidth: Int) {
 
     var pin: ObservableField<Pin> = ObservableField()
+    var position: ObservableField<Int> = ObservableField()
 
-    fun setItem(pin: Pin) {
+    fun setItem(pin: Pin, position: Int) {
         this.pin.set(pin)
+        this.position.set(position)
     }
 
     fun onThumbClick(view: View) {
-        Navigator.startPinDetail(activity, view, pin.get())
+        Navigator.startPinDetail(activity, view, pin.get(), position.get())
     }
 }
