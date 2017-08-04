@@ -16,6 +16,7 @@ object BoardUtil {
 
     val RPI3_PIN_20 = "BCM20"
     val RPI3_PIN_21 = "BCM21"
+    val RPI3_PIN_16 = "BCM16"
 
     // For the edison check the pin prefix
     // to always return Edison Breakout pin name when applicable.

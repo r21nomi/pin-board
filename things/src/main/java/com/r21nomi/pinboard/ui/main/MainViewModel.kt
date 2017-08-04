@@ -95,22 +95,19 @@ class MainViewModel(val getPins: GetPins) {
 
     private val nextButtonGpio: Gpio by lazy {
         val service = PeripheralManagerService()
-        val skipNextPinName = BoardUtil.RPI3_PIN_21
-        service.openGpio(skipNextPinName)
+        service.openGpio(BoardUtil.RPI3_PIN_21)
     }
     private val prevButtonGpio: Gpio by lazy {
         val service = PeripheralManagerService()
-        val skipNextPinName = BoardUtil.RPI3_PIN_20
-        service.openGpio(skipNextPinName)
+        service.openGpio(BoardUtil.RPI3_PIN_20)
+    }
+    private val reloadButtonGpio: Gpio by lazy {
+        val service = PeripheralManagerService()
+        service.openGpio(BoardUtil.RPI3_PIN_16)
     }
 
     init {
-        // This is necessary to avoid "IllegalArgumentException: Parameter specified as non-null is null"
-        uri_1.set(Uri.EMPTY)
-        uri_2.set(Uri.EMPTY)
-        alpha_1.set(1f)
-        alpha_2.set(0f)
-
+        init()
         initGpio()
     }
 
@@ -144,6 +141,20 @@ class MainViewModel(val getPins: GetPins) {
         }
     }
 
+    private fun init() {
+        // This is necessary to avoid "IllegalArgumentException: Parameter specified as non-null is null"
+        uri_1.set(Uri.EMPTY)
+        uri_2.set(Uri.EMPTY)
+        alpha_1.set(1f)
+        alpha_2.set(0f)
+
+        nextForegroundTarget = Target.TARGET_1
+
+        dataSet.clear()
+        lastPage = null
+        latestFetchedImagePosition = 0
+    }
+
     private fun initGpio() {
         try {
             // Setup for prevButton.
@@ -167,6 +178,19 @@ class MainViewModel(val getPins: GetPins) {
                     return true
                 }
             })
+
+            // Setup for reloadButton.
+            reloadButtonGpio.setDirection(Gpio.DIRECTION_IN)
+            reloadButtonGpio.setEdgeTriggerType(Gpio.EDGE_FALLING)
+            reloadButtonGpio.registerGpioCallback(object : GpioCallback() {
+                override fun onGpioEdge(gpio: Gpio?): Boolean {
+                    Timber.d("GPIO changed, reload button pressed.")
+                    init()
+                    fetch("")
+                    return true
+                }
+            })
+
         } catch (e: IOException) {
             Timber.e(e.message, e)
         }
@@ -175,13 +199,17 @@ class MainViewModel(val getPins: GetPins) {
     private fun startCrossFading(duration: Long) {
         val foregroundAnimator: ValueAnimator = ValueAnimator.ofFloat(1f, 0f).apply {
             addUpdateListener {
-                getNextForegroundTarget().getAlpha(this@MainViewModel).set(it.animatedValue as Float)
+                if (dataSet.isNotEmpty()) {
+                    getNextForegroundTarget().getAlpha(this@MainViewModel).set(it.animatedValue as Float)
+                }
             }
         }
 
         val backgroundAnimator: ValueAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
             addUpdateListener {
-                getNextBackgroundTarget().getAlpha(this@MainViewModel).set(it.animatedValue as Float)
+                if (dataSet.isNotEmpty()) {
+                    getNextBackgroundTarget().getAlpha(this@MainViewModel).set(it.animatedValue as Float)
+                }
             }
         }
 
@@ -194,8 +222,11 @@ class MainViewModel(val getPins: GetPins) {
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator?) {
                     super.onAnimationEnd(animation)
-                    // Prepare for next image.
-                    prepareForNextImage()
+
+                    if (dataSet.isNotEmpty()) {
+                        // Prepare for next image.
+                        prepareForNextImage()
+                    }
                 }
             })
             start()
