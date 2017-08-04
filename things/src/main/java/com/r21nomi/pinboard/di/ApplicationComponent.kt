@@ -4,6 +4,7 @@ import android.content.Context
 import com.r21nomi.core.di.CoreModule
 import com.r21nomi.pinboard.ui.login.LoginModule
 import com.r21nomi.pinboard.ui.main.MainModule
+import com.r21nomi.pinboard.ui.offline.OfflineModule
 import dagger.Component
 import javax.inject.Singleton
 
@@ -16,7 +17,8 @@ import javax.inject.Singleton
                 ApplicationModule::class,
                 CoreModule::class,
                 LoginModule::class,
-                MainModule::class
+                MainModule::class,
+                OfflineModule::class
         )
 )
 interface ApplicationComponent : CoreModule.Provider {
