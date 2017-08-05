@@ -7,6 +7,8 @@ import android.os.Bundle
 import com.r21nomi.pinboard.R
 import com.r21nomi.pinboard.databinding.ActivityOfflineBinding
 import com.r21nomi.pinboard.ui.BaseActivity
+import rx.android.schedulers.AndroidSchedulers
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -36,6 +38,14 @@ class OfflineActivity : BaseActivity() {
                 .inject(this)
 
         binding.viewModel = offlineViewModel
+
+        offlineViewModel.skipRequest()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    binding.kenBurnsView.restart()
+                }, {
+                    Timber.e(it)
+                })
 
         offlineViewModel.fetch()
     }
