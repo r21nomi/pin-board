@@ -22,7 +22,7 @@ import java.io.IOException
  */
 class OfflineViewModel(val getOfflineImages: GetOfflineImages) {
     companion object {
-        val LIMIT = 20
+        val LIMIT = 38
     }
 
     val uri: ObservableField<Uri> = ObservableField()
